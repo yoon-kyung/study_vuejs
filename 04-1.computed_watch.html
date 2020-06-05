@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <button v-on:click="counter++">INCREASE</button>
+        <button v-on:click="counter--">DECREASE</button>
+        <button v-on:click="secondCounter++">INCREASE SECOND</button>
+
+        <p>COUNTER: {{ counter }} | {{ secondCounter }}</p>
+        <p>RESULT: {{ result() }} | {{ output }}</p>
+        
+
+    </div>
+    <script>
+
+        /******************
+        * <computed>
+        * - template에서 호출시 ()를 적지 않음
+        * - return 값이 반드시 존재해야 함
+        * - parameter를 받을 수 없음
+        * 
+        * <computed VS methods>
+        * - computed: template 내부에 선언된 computed중 해당 함수와 연결된 값이 바뀔 때만 해당 함수를 실행.
+        * - methods: template 내부에 선언된 methods중에서 update라이프사이클이 동작한(아무 변수나 바뀐)다면 함수를 모두 실행
+        * 
+        * <watch>
+        * - 지정한 대상의 값이 변경될 때마다 정의한 함수가 실행됨
+        * - watch는 newVal과 oldVal을 인자로 받음
+        *
+        * 참고: https://kamang-it.tistory.com/entry/Vue23computed-%EA%B7%B8%EB%A6%AC%EA%B3%A0-methods%EC%99%80%EC%9D%98-%EC%B0%A8%EC%9D%B4featwatch
+        */
+
+        new Vue({
+            el: '#app',
+            data: {
+                counter: 0,
+                secondCounter: 0
+            },
+            methods: {
+                result() {
+                    console.log('methods');
+                    return this.counter > 5 ? 'Greater than 5' : 'Smaller than 5';
+                }
+            },
+            computed: {
+                output: function() {
+                    console.log('computed');
+                    return this.secondCounter > 5 ? 'Greater than 5' : 'Smaller than 5';
+                }
+            },
+            watch: {
+                counter: function(newVal, oldVal) {
+                    console.log(oldVal + "에서 " + newVal + " 로 변경되었습니다.");
+                }
+            }
+        })
+    </script>
+</body>
+</html>

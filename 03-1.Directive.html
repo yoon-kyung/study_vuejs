@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vuejs</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        
+        <!-- v-once -->
+        <h1 v-once>{{ title }}</h1>
+        <p>{{ sayHello() }}</p>
+
+        <!-- v-bind -->
+        <p><a v-bind:href="link">Google</a></p>
+
+        <!-- v-html -->
+        <p v-html="finishedLink"></p>
+
+        <!-- v-on -->
+        <button v-on:click="increase">CLICK</button>
+        <p>{{ counter }}</p>
+        <p v-on:mousemove="updateCoordinates">COORDINATES: {{x}}/{{y}} 
+            - <span v-on:mousemove.stop>DEAD SOPT</span>
+        </p>
+
+        <input type="text" v-on:keyup.enter="alertMe">
+
+        <!-- v-model -->
+        <div>
+            <input type="text" v-model="message" placeholder="이곳에 텍스트를 입력하세요">
+            <p>message: {{message}}</p>
+        </div>
+    </div>
+
+    <script>
+
+        /*************
+        * Directive - HTML 태그 안에 들어가서 속성의 역할을 함
+        * 1. v-bind : HTML 속성에 Vue 내의 값을 사용 할 수 있도록 도와줌. shorthand: v-bind 생략가능. 예를들면 v-bind:href === :href
+        * 2. v-once : 일회성 디렉티브. 컴포넌트를 초기에 딱 한번만 렌더링 함 (데이터가 변경 될 때 화면을 갱신하지 않음.)
+        *             예제에서 보면 sayHello()를 아래 block에서 실행 해도 {{title}}의 값이 변경되지 않음을 확인 할 수 있음.
+        * 3. v-html : HTML 코드를 직접적으로 입력해 줄 때 사용되는 디렉티브
+        * 4. v-on : event와 관련된 디렉티브. shortahnd: @를 붙임. 예를 들면 v-on:click === @click
+        * 5. v-model : form input과 element 양방향 데이터 바인딩 생성
+        */
+
+        new Vue({
+            el: '#app',
+            data: {
+                title: 'Hello Vue!',
+                link: 'http://www.google.com',
+                finishedLink: '<a href="http://google.com">Google</a>',
+                counter: 0,
+                x: 0,
+                y: 0,
+                message: ''
+            },
+            methods: {
+                sayHello: function() {
+                    this.title = 'Hello를 변경합니다';
+                    return this.title;
+                },
+                increase: function() {
+                    this.counter++;
+                },
+                updateCoordinates: function(event) {
+                    this.x = event.clientX;
+                    this.y = event.clientY;
+                },
+                alertMe: function() {
+                    alert('Alert!');
+                }
+            }
+        })
+    </script>
+</body>
+</html>
