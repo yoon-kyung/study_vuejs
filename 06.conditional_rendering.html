@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vuejs</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <p v-if="show">You can see me! <span>Hello!</span></p>
+        <p v-else>Now you see me</p>
+        
+        <template v-if="show">
+            <h1>Heading</h1>
+            <p>Inside a template</p>
+        </template>
+
+        <p>Do you also see me?</p>
+        <button @click="show = !show">SWITCH</button>
+
+        <!-- v-show : display가 none 혹은 block -->
+        <p v-show="show">SHOW 끝은 없는 거양</p>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true
+            }        
+        })
+    </script>
+</body>
+</html>
