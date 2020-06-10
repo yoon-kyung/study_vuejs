@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{ title }}</h1>
+        <button ref="myButton" @click="clickedButton">Show paragraph</button>
+    </div>
+
+    <div id="app3">
+
+    </div>
+
+    <script>
+
+        var vm = new Vue({
+            data: {
+                title : 'Hello Vue!',
+                message : 'UPDATED'
+            },
+            methods : {
+                clickedButton : function() {
+                    console.log(this.$refs);
+                    this.$refs.myButton.innerText = this.message;
+                }
+            }
+        });
+
+
+        // 방법1
+        vm.$mount('#app');
+
+
+        // 방법2
+        var vm3 = new Vue({
+            template: '<h1>HELLO!</h1>'
+        });
+
+        vm3.$mount('app3');
+        document.getElementById('app3').appendChild(vm3.$el);
+
+    </script>
+</body>
+</html>
